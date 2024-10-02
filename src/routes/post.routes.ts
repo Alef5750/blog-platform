@@ -16,3 +16,5 @@ router.get("/:id", getPost);
 router.put("/:id", updatePost);
 router.delete("/:id", deletePost);
 router.post("/:id/comments", addComment);
+
+export default router;
