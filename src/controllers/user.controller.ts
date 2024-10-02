@@ -30,4 +30,4 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 
-// נא לחקור איך לבצע מחיקה ועריכה
+// add DELETE and EDIT
