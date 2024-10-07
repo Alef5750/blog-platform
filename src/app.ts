@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./swagger";
 import postRoutes from "./routes/post.routes";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
