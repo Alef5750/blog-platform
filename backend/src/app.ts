@@ -2,8 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./swagger";
-import postRoutes from "./routes/post.routes";
 import dotenv from "dotenv";
+import postRouter from "./routes/post.routes";
+import userRouter from "./routes/user.routes";
 
 dotenv.config();
 
@@ -23,7 +24,8 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
-app.use("/api/posts", postRoutes);
+app.use("/api/posts", postRouter);
+app.use("/api/users", userRouter);
 
 // Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
