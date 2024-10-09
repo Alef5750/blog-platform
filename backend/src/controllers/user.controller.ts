@@ -17,20 +17,19 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-
     if (!user) {
       res.status(401).json({ message: "Login failed" });
       return;
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-
     if (!isMatch) {
       res.status(401).json({ message: "Login failed" });
       return;
     }
 
     const token = await user.generateAuthToken();
+    console.log(token);
     res.json({ user, token });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error });

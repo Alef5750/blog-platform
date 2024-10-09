@@ -1,13 +1,13 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./swagger";
-import dotenv from "dotenv";
 import postRouter from "./routes/post.routes";
 import userRouter from "./routes/user.routes";
 import { corsMiddleware } from "./middleware/cors.middleware";
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;

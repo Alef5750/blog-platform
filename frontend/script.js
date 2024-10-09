@@ -92,7 +92,7 @@ document
       password: document.getElementById("password").value,
       profile: {
         bio: document.getElementById("bio").value,
-        socialLinks: [],
+        socialLinks: [document.getElementById("socialMedia").value],
       },
     };
 
@@ -135,9 +135,10 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     if (!response.ok) throw new Error("Login failed");
 
     const data = await response.json();
+    console.log(data);
     authToken = data.token;
+    sessionStorage.setItem("authToken", data.token); // Store token in sessionStorage
     currentUser = data.user;
-    localStorage.setItem("authToken", authToken);
 
     document.getElementById("login-error").textContent = "";
     document.getElementById("loginForm").reset();
