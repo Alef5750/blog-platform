@@ -5,6 +5,7 @@ import { specs } from "./swagger";
 import dotenv from "dotenv";
 import postRouter from "./routes/post.routes";
 import userRouter from "./routes/user.routes";
+import { corsMiddleware } from "./middleware/cors.middleware";
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
-
+app.use(corsMiddleware);
 // MongoDB Connection
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/blog_platform";

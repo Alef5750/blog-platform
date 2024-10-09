@@ -1,5 +1,6 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import User, { IUser } from "../models/user.model";
+import bcrypt from "bcryptjs";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -8,6 +9,31 @@ export const createUser = async (req: Request, res: Response) => {
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ message: "Error creating user", error });
+  }
+};
+
+// LOGIN
+export const loginUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      res.status(401).json({ message: "Login failed" });
+      return;
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      res.status(401).json({ message: "Login failed" });
+      return;
+    }
+
+    const token = await user.generateAuthToken();
+    res.json({ user, token });
+  } catch (error) {
+    res.status(500).json({ message: "Error logging in", error });
   }
 };
 
